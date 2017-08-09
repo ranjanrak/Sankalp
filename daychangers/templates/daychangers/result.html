@@ -1,0 +1,49 @@
+<html>
+<head>
+{% include 'meta/meta.html' %}
+<link rel="icon" href="https://support.zerodha.com/logo.php">
+</head>
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://kite.trade/publisher.js?v=1"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <style>
+body{position: absolute;left: 30%;top: 17%}
+h3{background-color: blue;}
+ </style>
+
+ <body>
+
+ 	<h3>Stock detail for {{getquote.companyName}}</h4>
+     <br>
+     <h4>Today's Average price: <strong>{{getquote.averagePrice}}</strong></h4>
+     <br>
+     <h4>Best buy Price: <strong>{{getquote.buyPrice1}}</strong></h4>
+     <br>
+     <h4>BestSell Price :<strong>{{getquote.sellPrice1}}</strong></h4>
+     <br>
+ 	 <h4>Day's High :<strong>{{getquote.dayHigh}}</strong></h4>
+ 	 <br>
+ 	 <h4>Day's Low : <strong>{{getquote.dayLow}}</strong></h4>
+ 	 <br>
+ 	 <h4>52 Week High: <strong>{{getquote.high52}}</strong></h4>
+ 	 <br>
+ 	 <h4>52 Week Low: <strong>{{getquote.low52}}</strong></h4>
+ 	 <kite-button href="#" data-kite="dcnx5vj33lgaxbcc"
+            data-exchange="NSE"
+            data-tradingsymbol="{{ getquote.symbol}}"
+            data-transaction_type="BUY"
+            data-quantity="1"
+            data-order_type="MARKET">Buy {{ getquote.symbol}}</kite-button>
+            
+            <kite-button href="#" data-kite="dcnx5vj33lgaxbcc"
+            data-exchange="NSE"
+            data-tradingsymbol="{{ getquote.symbol}}"
+            data-transaction_type="SELL"
+            data-quantity="1"
+            data-order_type="MARKET">Buy {{ getquote.symbol}}</kite-button>
+
+  </body>
+
+</html>

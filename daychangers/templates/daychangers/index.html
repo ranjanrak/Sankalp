@@ -1,0 +1,47 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.subject{position: absolute;top: 25%; left: 34%;list-style-type: none;background:#90EE90;
+    padding: 70px;text-decoration: none;
+}
+ul li{background:#FFFFF0;}
+a:link {
+    text-decoration: none;
+}
+a:hover{ background: #F0E68C;
+
+}
+p {
+  font-family:arial;
+  font-size:100%;
+  margin:3em;
+  background: #ffff99;
+  position: absolute;
+  left: 70%;
+  text-decoration: none;
+  height:8em;
+  width:14em;
+  padding:1em;
+}
+.location{position: absolute;left: 92%; top:01%;}
+
+</style>
+<body background = "http://www.lintex.com.au/wp-content/uploads/2017/01/Stock-Image-9.jpg">
+
+  <ul class = "subject">
+    <h2><li><strong><a href="{% url 'daychangers:search' %}">Get Stock quotes</a></strong></li></h2><br>
+    <h2><li><strong><a href="{% url 'daychangers:supergainer' %}">Today Top 10 Gainer</a></strong></li></h2><br> 
+    <h2><li><strong><a href="{% url 'daychangers:superloser' %}">Today Top 10 Loser</a></strong></li></h2><br>
+    <h2><li><strong><a href="http://pulse.zerodha.com/">Read latest news</a></strong></li></h2>
+
+  </ul>
+  <button type="button" class="location">
+          <span class="glyphicon glyphicon-log-out"></span><a href="{% url 'daychangers:login_user' %}"> Log out</a>
+        </button>
+
+<p>If any feature request/suggestion, please ping me at rakesh.ranjan@zerodha.com</p>
+
+</body>     
+</html>

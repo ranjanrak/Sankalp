@@ -1,0 +1,51 @@
+<html>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.change{width: 300px;
+    height: 10px;    
+    padding: 50px;
+    position:absolute;
+    left:35%;
+    }
+ body{background-color: #F0FFFF;}  
+ a:link {
+    text-decoration: none;
+} 
+ul {
+  font-family:arial;
+  font-size:100%;
+  margin:3em;
+  background: #ffff99;
+  position: absolute;
+  left: 70%;
+  text-decoration: none;
+  height:10em;
+  width:10em;
+  padding:1em;
+}
+.position{position: absolute; left: 70%; top: 40%}
+ </style>   
+<body>
+<form class ="change" role="search" method ="post" action="{% url 'daychangers:result' %}">
+	{% csrf_token %}
+	<div class ="form-group">
+		<input type ="text" class ="form-control" name ="search" value="">
+
+	</div>
+	<button type="submit" class="btn btn-default">Search</button>
+
+</form>
+
+<ul>
+      <h2>Notice</h2>
+      <p>Please enter exact stock symbol <p>
+</ul>
+<div class= "position">
+<p><a href="{% url 'daychangers:stocklist' %}">Click here </a> to get stocklist with symbol</p>
+</div>
+</body>
+
+</html>	

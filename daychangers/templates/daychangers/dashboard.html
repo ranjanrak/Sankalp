@@ -1,0 +1,373 @@
+<html>
+<head>
+{% include 'meta/meta.html' %}
+<link rel="icon" href="https://support.zerodha.com/logo.php">
+</head>
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <style>
+ .location {
+   position: absolute;
+   left:40%;
+   top: 05%;
+}
+#shift{
+  position: absolute;
+  top: 10%;
+  left: 02%;
+  display: block;
+
+}
+#shift1{
+  position: absolute;
+  top: 10%;
+  left: 02%;
+  display: none;
+}
+#shift2{
+  position: absolute;
+  top: 10%;
+  left: 02%;
+  display: none;
+
+}
+ .card {
+    box-shadow: 0 4px 8px 0 rgba(1,2,3,0.2);
+    width: 30%;
+}
+
+.container {
+    padding: 1px 2px;
+    margin: auto;
+}
+
+#color{
+  background-color: #228B22;
+}
+#chartContainer{
+  position: absolute;
+   left:40%;
+   top: 20%;}
+   #person{
+  position: absolute;
+   left:35%;
+   top: 10%;
+   color: black;}
+#down{
+  position: absolute;
+   top: 90%;
+   left:10%;
+}   
+#fun{
+  opacity: 0;
+  position:absolute;
+    left:10%;
+}
+#fun:hover{
+   opacity: 1;
+   cursor: pointer;
+   position:absolute;
+    left:10%;
+}
+.active{
+position:relative;
+left:500px;
+}
+.active1{
+position:relative;
+left:500px;
+}
+#look{
+  position: absolute;
+  left: 10%;
+}
+#look1{
+  position: absolute;
+  left: 20%;
+}
+.remove_list{
+ list-style-type: none;
+ text-decoration: none; 
+}
+.notice {
+  font-family:arial;
+  font-size:100%;
+  margin:3em;
+  background: #ffff99;
+  position: absolute;
+  left: 85%;
+  text-decoration: none;
+  height:16em;
+  width:10em;
+  padding:1em;
+}
+#modal-content {
+    display: none;
+    background-color:#FFFFFF;
+    color:#000000;
+    margin: auto;
+    border-radius: 2px;
+    position:absolute;
+    left: 580px;
+    top: 470px;
+    padding: 5px 0;
+    width: 200px;
+    text-align: center;
+    margin-left:0px;
+}
+#modal-content1 {
+    display: none;
+    background-color:#FFFFFF;
+    color:#000000;
+    margin: auto;
+    border-radius: 2px;
+    position:absolute;
+    left: 580px;
+    top: 460px;
+    padding: 5px 0;
+    width: 200px;
+    text-align: center;
+    margin-left:0px;
+}
+#orders{
+background:   #000000;
+}
+.close1{
+  position: relative;
+  left: 50%;
+  cursor: pointer;
+}
+</style>
+<body background "https://thumbs.dreamstime.com/z/bull-bear-stock-market-d-illustration-concept-white-background-37382231.jpg">
+{% load mathfilters %}
+<div id = "shift">
+{% for stock in gainer %}
+<div class="card">
+  <div class="container">
+    <p><b>{{ stock.symbol}}</b> &nbsp; &nbsp; &nbsp; <b id="look">{{ stock.netPrice}}%</b> &nbsp; &nbsp; <b id="look1">{{stock.ltp}}</b></p>
+    <div id="fun">
+<button class="myBtn5">Buy</button>
+</div>
+  <div id="modal-content1">
+  <span class="close1"><b>&times;</b></span>
+  <p><b>Price</b><form action="{% url 'daychangers:checkorder' %}"  method="POST" > 
+  <input type="radio" name="order" value="market" checked><b> Market </b>
+  <input type="radio" name="order" value="limit"><b> limit </b>     
+  <input type = "number" step="0.05" name = "quantity" value= "">
+ <button name="place" type="submit" value={{stock.symbol}}><a href="{% url 'daychangers:checkorder' %}"></a>BUY</button>
+</form></p>
+  </div>
+</div>
+<br>
+</div>
+{% endfor %}
+</div>
+
+<div id="shift1">
+{% for stock in loser %}
+<div class="card">
+  <div class="container">
+{% with dif=stock.ltp|sub:stock.previousPrice %}
+{% with val=dif|mul:100 %}
+{% with final=val|div:stock.previousPrice %}
+<p><b>{{ stock.symbol}}</b>&nbsp; &nbsp; &nbsp;<b id="look"> {{final|floatformat:2 }} %</b> &nbsp; &nbsp;<b id="look1"> {{stock.ltp}}</b> </p>
+<div id="fun">
+<button class="myBtn">Buy</button>
+</div>
+  <div id="modal-content">
+  <span class="close"><b>&times;</b></span>
+  <p><b>Price</b><form action="{% url 'daychangers:checkorder' %}"  method="POST" > 
+  <input type="radio" name="order" value="market" checked><b> Market </b>
+  <input type="radio" name="order" value="limit"><b> limit </b>     
+  <input type = "number" step="0.05" name = "quantity" value= "">
+ <button name="place" type="submit" value={{stock.symbol}}><a href="{% url 'daychangers:checkorder' %}"></a>BUY</button>
+</form></p>
+  </div>
+</div>
+<br>
+</div>
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endfor %}
+</div>
+<div id = "shift2">
+  <div class="ui-widget">
+  <label for="tags">Stock: </label>
+  <form action="{% url 'daychangers:index' %}" method="POST">
+  <input id="tags" type ="text" value="">
+  <button id ="select">Add</button>
+</form>
+</div>
+<div class="card">
+  <div class="container">
+     {% for stock in script %}
+    <div id="script_add">
+      <p><b>{{ stock.name}}</b> &nbsp; &nbsp; <b id="look">LTP: {{stock.ltp}}</b> </p>
+    </div>
+      {% endfor %}
+  </div>
+</div>
+
+</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Dashboard &nbsp; &nbsp; &nbsp;</a></li>
+      <li class="active1"><a href="{% url 'daychangers:orders' %}">Orderbook &nbsp; &nbsp; &nbsp;</a></li>
+      <li class="active1"><a href="{% url 'daychangers:holding' %}">Holdings &nbsp; &nbsp; &nbsp;</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span>{{user}}</a></li>
+      <li><a href="{% url 'daychangers:logout_user' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div id="down">
+<h4><button id="myBtn1"><b>1</b></button>&nbsp; &nbsp; <button id="myBtn2"><b>2</b></button>&nbsp; &nbsp; <button id="myBtn3"><b>3</b></button></h4>
+</div>
+</div>
+<div id="person"><h2><b>Hi, {{user}}</b></h2></div>
+<div id="chartContainer"></div>
+
+
+<script type="text/javascript">
+   {% for check in margin %}
+   if ({{check.holdings}} > 0){
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Account Value"
+      },
+      
+    
+      data: [
+      {
+       type: "doughnut",
+       dataPoints: [
+       {  y: {{check.funds}}, indexLabel: "Free Cash" },
+       {  y: {{check.holdings}}, indexLabel: "Holdings" },
+       ]
+     }
+     ]
+
+   });
+
+    chart.render();
+  }
+}
+else{
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Account Value"
+      },
+      
+    
+      data: [
+      {
+       type: "doughnut",
+       dataPoints: [
+       {  y: {{check.funds}}, indexLabel: "Free Cash" },
+       ]
+     }
+     ]
+     
+   });
+
+    chart.render();
+  }
+}
+{% endfor %}
+var btn = document.getElementById("myBtn1");
+var btn2 = document.getElementById("myBtn2");
+var btn3 = document.getElementById("myBtn3");
+var tab1=document.getElementById("shift");
+var tab2=document.getElementById("shift1");
+var tab3=document.getElementById("shift2");
+var add=document.getElementById("select");
+
+btn.onclick = function(){
+  tab1.style.display = "block";
+  tab2.style.display ="none";
+  tab3.style.display ="none";
+}
+btn2.onclick = function(){
+  tab2.style.display = "block";
+  tab1.style.display ="none";
+  tab3.style.display ="none";
+}
+btn3.onclick = function(){
+  tab3.style.display ="block";
+  tab2.style.display = "none";
+  tab1.style.display ="none";
+}
+document.getElementById("select").addEventListener("click", function(event){
+    event.preventDefault()
+    var searchTerm = $('#tags').val();
+    var li = document.createElement("li"); 
+    $.ajax({
+    url: 'https://gainerandloser.herokuapp.com/addsymbol/',
+    data: { stock:searchTerm} ,
+    type: 'GET',
+    dataType : "json",
+    success: function(data) {
+      var li = document.createElement("li");
+      li.className = "remove_list";
+      li.innerHTML=searchTerm+" " +"LTP:"+data;
+      document.getElementById("script_add").appendChild(li);
+        },
+}); 
+
+});
+var btn = document.getElementsByClassName("myBtn");
+var btn5 = document.getElementsByClassName("myBtn5");
+var che = document.getElementById("modal-content");
+var che1 = document.getElementById("modal-content1");
+var span = document.getElementsByClassName("close")[0];
+var span1 = document.getElementsByClassName("close1")[0];
+
+for(var i=0;i<btn.length;i++){
+ btn[i].onclick = function(){
+ che.style.display = "block";
+}
+}
+for(var i=0;i<btn5.length;i++){
+ btn5[i].onclick = function(){
+ che1.style.display = "block";
+}
+}
+span1.onclick=function(){
+  che1.style.display = "none";
+}
+
+span.onclick=function(){
+  che.style.display = "none";
+}
+$( function() {
+    var availableTags = ['WIPRO','RELIANCE','ZEEL','COALINDIA','KOTAKBANK','TCS','AMBUJACEM','IOC','HCLTECH','INFY','INFRATEL','TATAMOTORS','TECHM','ICICIBANK','ULTRACEMCO','TATAMTRDVR',
+        'ADANIPORTS','INDUSINDBK','MARUTI','TATAPOWER','HINDUNILVR','YESBANK','HINDALCO','DRREDDY','AXISBANK','ASIANPAINT','BPCL','SBIN','BANKBARODA','ACC','BAJAJ-AUTO','NTPC','ITC','VEDL','HDFCBANK','GAIL','BOSCHLTD','HDFC','LT',
+        'AUROPHARMA','M&M','ONGC','TATASTEEL','CIPLA','SUNPHARMA','EICHERMOT','LUPIN','POWERGRID','IBULHSGFIN','BHARTIARTL'];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+
+  </script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+</body>
+</html>
+

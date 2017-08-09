@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+{% include 'meta/meta.html' %}
+<meta http-equiv="refresh" content="5">
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table{border-spacing: 1; 
+  border-collapse: collapse; 
+  background:white;
+  border-radius:6px;
+  overflow:hidden;
+  max-width:800px; 
+  width:100%;
+  margin:0 auto;
+  position:relative;
+height:60px;
+    background:#FFED86;
+    font-size:16px;}
+
+th, td {
+    padding: 5px;
+}
+th {
+    text-align: left;
+}
+h2{
+  text-align: center;
+}
+.changes{
+position: absolute;
+left: 80%;
+text-decoration: none;
+background: #ffff99;
+}
+</style>
+
+<h2><b>Completed orders</b></h2>
+<table>
+<tr>
+  <td><b>Client id</b></td>
+  <td><b>Order number</b></td>
+  <td><b>Date</b></td>
+  <td>Symbol</td>
+  <td>Price</td>
+  <td>Quantity</td>
+  <td>Tradetype</td>
+  <td>Ordertype</td>
+  <td>Status</td>
+</tr>
+{% for q1 in i_d %}
+<tr>
+  <td>{{q1.client_id}}</td>
+  <td>{{q1.orderno}}</td>
+  <td>{{q1.date}}</td>
+  <td>{{q1.symbol}}</td>
+  <td>{{q1.price}}</td>
+  <td>{{q1.quantity}}</td>
+  <td>{{q1.trade_type}}</td>
+  <td>{{q1.ordertype}}</td> 
+  <td>{{q1.status}}</td>
+</tr> 
+{% endfor %}
+</table>
+<h2><b>Pending orders</b></h2>
+<table>
+<tr>
+  <td><b>Client id</b></td>
+  <td><b>Order number</b></td>
+  <td><b>Date</b></td>
+  <td>Symbol</td>
+  <td>Price</td>
+  <td>Quantity</td>
+  <td>Tradetype</td>
+  <td>Ordertype</td>
+  <td>Status</td>
+</tr>
+{% for q2 in q1 %}
+<tr>
+  <td>{{q2.client_id}}</td>
+  <td>{{q2.orderno}}</td>
+  <td>{{q2.date}}</td>
+  <td>{{q2.symbol}}</td>
+  <td>{{q2.price}}</td>
+  <td>{{q2.quantity}}</td>
+  <td>{{q2.trade_type}}</td>
+  <td>{{q2.ordertype}}</td> 
+  <td>{{q2.status}}</td>
+</tr> 
+{% endfor %}
+</table>
+
+
+<h2>{{msg}}</h2>
+<div class="changes">
+<p><a href="{% url 'daychangers:index' %}">Click here</a> &nbsp; to go back to dashboard page</p> 
+</div>
+
+</html>

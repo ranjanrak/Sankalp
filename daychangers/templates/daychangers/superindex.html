@@ -1,0 +1,84 @@
+<html>
+<head>
+{% include 'meta/meta.html' %}
+<meta http-equiv="refresh" content="30">
+<link rel="icon" href="https://support.zerodha.com/logo.php">
+</head>
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <style>
+ ul {
+  font-family:arial;
+  font-size:100%;
+  margin:3em;
+  background: #ffff99;
+  position: absolute;
+  left: 70%;
+  text-decoration: none;
+  height:16em;
+  width:10em;
+  padding:1em;
+}
+ .location {
+   position: absolute;
+   left:40%;
+   top: 05%;
+}
+.shift{
+  position: absolute;
+  top: 05%;
+}
+ .card {
+    box-shadow: 0 4px 8px 0 rgba(1,2,3,0.2);
+    width: 30%;
+}
+
+.container {
+    padding: 2px 16px;
+}
+h2{color: blue;font-style: oblique;
+}
+.feedback{background-color: yellow;font-style: oblique; position: absolute;left:12%;}
+</style>
+<body background "https://thumbs.dreamstime.com/z/bull-bear-stock-market-d-illustration-concept-white-background-37382231.jpg">
+{% load mathfilters %}
+<div class = "shift">
+<h2>TOP 10 GAINERS</h2>
+{% for stock in gainer %}
+<div class="card">
+  <div class="container">
+    <h4><b>{{ stock.symbol}}</b></h4> 
+    <p><strong>{{ stock.netPrice}}%</strong></p> 
+    <p>LTP:{{stock.ltp}}</p>
+  </div>
+</div>
+{% endfor %}
+</div>
+<div class="location">
+<h2>TOP 10 LOSERS</h2>
+{% for stock in loser %}
+<div class="card">
+  <div class="container">
+<h4><b>{{ stock.symbol}}</b></h4>
+{% with dif=stock.ltp|sub:stock.previousPrice %}
+{% with val=dif|mul:100 %}
+{% with final=val|div:stock.previousPrice %}
+<p><strong>{{final|floatformat:2 }} %</strong></p>
+<p>LTP:{{stock.ltp}}</p>
+</div>
+</div>
+{% endwith %}
+{% endwith %}
+{% endwith %}
+{% endfor %}
+</div>
+
+<ul>
+      <h3>Request</h3>
+      <p>Create new Account and Login to experience many new features.<a href="{% url 'daychangers:register' %}">Click here</a></p> 
+</ul>
+</body>
+</html>
+

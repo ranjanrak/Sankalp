@@ -1,0 +1,63 @@
+<html>
+<head>
+{% include 'meta/meta.html' %}
+<meta http-equiv="refresh" content="30">
+<link rel="icon" href="https://support.zerodha.com/logo.php">
+</head>
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://kite.trade/publisher.js?v=1"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <style>
+ .location {
+   position: absolute;
+   left:40%;
+   top: 05%;
+}
+.shift{
+  position: absolute;
+  top: 20%;
+}
+h2{color: white; background-color: black;
+  position: absolute;left:30%;top: 04%;
+}
+.item {
+    background-color:#90EE90   ;
+    float: left;
+    margin: 0 10px 10px 0;
+    width: 205px;
+    padding: 10px;
+    height: 200px;
+}
+</style>
+<body background "https://thumbs.dreamstime.com/z/bull-bear-stock-market-d-illustration-concept-white-background-37382231.jpg">
+
+{% load mathfilters %}
+<h2>TOP 10 GAINER</h2>
+<div class = "shift">
+{% for stock in gainer %}
+<div class="item">
+    <h4><b>{{ stock.symbol}}</b></h4> <br>
+    <p><strong>{{ stock.netPrice}}%</strong></p> <br> 
+    <p>LTP:{{stock.ltp}}</p>
+    <kite-button href="#" data-kite="dcnx5vj33lgaxbcc"
+            data-exchange="NSE"
+            data-tradingsymbol="{{ stock.symbol}}"
+            data-transaction_type="BUY"
+            data-quantity="1"
+            data-order_type="MARKET">Buy {{ stock.symbol}}</kite-button>
+            
+            <kite-button href="#" data-kite="dcnx5vj33lgaxbcc"
+            data-exchange="NSE"
+            data-tradingsymbol="{{ stock.symbol}}"
+            data-transaction_type="SELL"
+            data-quantity="1"
+            data-order_type="MARKET">Buy {{ stock.symbol}}</kite-button>
+  </div>
+{% endfor %}
+</div>
+
+</body>
+</html>
+

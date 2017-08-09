@@ -1,0 +1,44 @@
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+<style>
+#login-page{
+    width: 700px;
+    border: 25px;
+    margin: 25px;
+position: absolute;
+   left:25%;
+   top: 10%;}
+</style>
+
+<body class ="blue">  
+<div id="login-page" class="row">
+    <div class="col s12 z-depth-6 card-panel">
+    <div class="row">
+        
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>Gainer and loser-SignUp Form</h4>
+                    <img src="https://static1.squarespace.com/static/5460295fe4b00403fdd72522/t/57fd7a98c534a52cb44d4e8a/1476229788124/2A.png">
+            
+                    {% if error_message %}
+                        <h4><strong>{{ error_message }}</strong></h4>
+                    {% endif %}
+                    <form class="login-form" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'daychangers/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
