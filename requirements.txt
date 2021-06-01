@@ -13,7 +13,7 @@ psycopg2==2.6.2
 pytz==2017.2
 requests==2.18.1
 six==1.10.0
-urllib3==1.21.1
+urllib3==1.26.5
 virtualenv==15.1.0
 virtualenvwrapper-win==1.2.1
 webencodings==0.5.1
